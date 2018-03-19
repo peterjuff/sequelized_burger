@@ -1,0 +1,59 @@
+<h1>Burgers!</h1>
+
+<h2>Name the burger!</h2>
+
+<ul>
+  {{#each burger}}
+    {{#unless devoured}}
+      {{> burger-block devoured=false}}
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>Devour the burger!</h2>
+
+<ul>
+  {{#each burger}}
+    {{#if devoured}}
+      {{> burger-block devoured=true}}
+    {{/if}}
+  {{/each}}
+</ul>
+
+<h2>Add a burger</h2>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="ca">Burger Name:</label>
+    <input class="burger_name" type="text" id="ca" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="devoured">Devoured?</label><br>
+    <input type="radio" name="not_devoured" value="1" checked> not devoured<br>
+    <input type="radio" name="devoured" value="0"> devoured!
+  </div>
+
+  <button class="submit" type="submit">Add Burger</button>
+</form>
+
+<script>
+  $(".submit").on("click", function() {
+    var newBurger = {
+            burger_name: $(".burger_name").val().trim(),
+            devoured: false
+        } 
+        $(".burger_name").empty();
+    $.ajax({
+        url: "/api/add",
+        method: "POST",
+        data: newBurger
+    }).then((response) => {
+    console.log(response);
+    });
+}) 
+
+
+
+
+</script>
