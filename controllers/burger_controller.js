@@ -35,7 +35,7 @@ router.put("/burgers/update/:id", function(req, res) {
     
     where: {
         id: req.params.id
-    },
+    }
 
   }).then(function(result) {
     // wrapper for orm.js that using MySQL update callback will return a log to console,
